@@ -2,24 +2,192 @@
 declare(strict_types=1);
 require_once __DIR__ . '/config/runtime.php';
 require_once __DIR__ . '/includes/company.php';
+
 $company = company_profile();
 $pdo = db();
-function h(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
-function public_image(?string $value): string { $value=trim((string)$value); if($value==='') return ''; if(preg_match('#^https?://#i',$value)) return $value; return '/'.ltrim($value,'/'); }
-function money_public($value): string { return is_numeric($value) ? '$'.number_format((float)$value,2,'.',',') : ''; }
-function pricing_label(string $type): string { return ['fixed'=>'Precio fijo','variable'=>'Precio variable','calculated'=>'Precio calculado','project'=>'Proyecto cotizable'][$type] ?? 'Cotización'; }
-$categoryId=(int)($_GET['categoria']??0); $q=trim((string)($_GET['q']??''));
-$categories=$pdo->query("SELECT id,name FROM cp_categories WHERE type='product' AND enabled=1 ORDER BY sort_order,name")->fetchAll(PDO::FETCH_ASSOC);
-$sql="SELECT p.id,p.name,p.sku,p.description,p.sale_price,p.pricing_type,c.name category_name,(SELECT i.path FROM cp_product_images i WHERE i.product_id=p.id AND i.enabled=1 ORDER BY i.sort_order,i.id LIMIT 1) image_path FROM cp_products p LEFT JOIN cp_categories c ON c.id=p.category_id WHERE p.enabled=1 AND p.visible_web=1"; $params=[];
-if($categoryId>0){$sql.=' AND p.category_id=?';$params[]=$categoryId;} if($q!==''){$sql.=' AND (p.name LIKE ? OR p.sku LIKE ? OR p.description LIKE ?)';$like='%'.$q.'%';array_push($params,$like,$like,$like);} $sql.=' ORDER BY c.sort_order,c.name,p.id DESC LIMIT 100';
-$stmt=$pdo->prepare($sql);$stmt->execute($params);$products=$stmt->fetchAll(PDO::FETCH_ASSOC);
-$phoneRaw=preg_replace('/\D+/','',(string)$company['phone']); if($phoneRaw!==''&&!str_starts_with($phoneRaw,'52'))$phoneRaw='52'.$phoneRaw; $waBase=$phoneRaw!==''?'https://wa.me/'.$phoneRaw:'';
-function quote_url(string $base,string $name):string{return $base===''?'#':$base.'?text='.rawurlencode('Hola Colibrí Print México, quiero cotizar el producto: '.$name.'. Me gustaría conocer opciones, medidas, materiales, tiempos y precio.');}
+
+function h(string $value): string {
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+function public_image(?string $value): string {
+    $value = trim((string)$value);
+    if ($value === '') return '';
+    if (preg_match('#^https?://#i', $value)) return $value;
+    return '/' . ltrim($value, '/');
+}
+function money_public($value): string {
+    return is_numeric($value) ? '$' . number_format((float)$value, 2, '.', ',') : '';
+}
+function pricing_label(string $type): string {
+    return [
+        'fixed' => 'Precio fijo',
+        'variable' => 'Precio variable',
+        'calculated' => 'Precio calculado',
+        'project' => 'Proyecto cotizable'
+    ][$type] ?? 'Cotización';
+}
+function quote_url(string $base, string $name): string {
+    if ($base === '') return '#';
+    return $base . '?text=' . rawurlencode(
+        'Hola Colibrí Print México, quiero cotizar el producto: ' .
+        $name .
+        '. Me gustaría conocer opciones, medidas, materiales, tiempos y precio.'
+    );
+}
+
+$categoryId = (int)($_GET['categoria'] ?? 0);
+$q = trim((string)($_GET['q'] ?? ''));
+
+$categories = $pdo->query("
+    SELECT id, name
+    FROM cp_categories
+    WHERE type='product' AND enabled=1
+    ORDER BY sort_order, name
+")->fetchAll(PDO::FETCH_ASSOC);
+
+$sql = "
+    SELECT
+        p.id, p.name, p.sku, p.description, p.sale_price, p.pricing_type,
+        c.name AS category_name,
+        (
+            SELECT i.path
+            FROM cp_product_images i
+            WHERE i.product_id=p.id AND i.enabled=1
+            ORDER BY i.sort_order, i.id
+            LIMIT 1
+        ) AS image_path
+    FROM cp_products p
+    LEFT JOIN cp_categories c ON c.id=p.category_id
+    WHERE p.enabled=1 AND p.visible_web=1
+";
+$params = [];
+
+if ($categoryId > 0) {
+    $sql .= " AND p.category_id=?";
+    $params[] = $categoryId;
+}
+if ($q !== '') {
+    $sql .= " AND (p.name LIKE ? OR p.sku LIKE ? OR p.description LIKE ?)";
+    $like = '%' . $q . '%';
+    array_push($params, $like, $like, $like);
+}
+$sql .= " ORDER BY c.sort_order, c.name, p.id DESC LIMIT 100";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$phoneRaw = preg_replace('/\D+/', '', (string)$company['phone']);
+if ($phoneRaw !== '' && !str_starts_with($phoneRaw, '52')) {
+    $phoneRaw = '52' . $phoneRaw;
+}
+$waBase = $phoneRaw !== '' ? 'https://wa.me/' . $phoneRaw : '';
 ?>
-<!doctype html><html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Catálogo de productos de Colibrí Print México. Personalización, impresión y soluciones para negocios, eventos y proyectos."><meta name="theme-color" content="#0f1715"><link rel="canonical" href="https://colibriprint.com.mx/catalogo.php"><title>Catálogo | <?=h($company['trade_name']?:$company['legal_name'])?></title><link rel="stylesheet" href="/assets/css/public.css?v=20260918-corporativo-v4"><link rel="stylesheet" href="/assets/css/catalogo.css?v=20260918-1"></head><body>
-<header class="catalog-header"><div class="catalog-container catalog-nav"><a class="catalog-brand" href="/" aria-label="Volver al sitio principal"><?php if(!empty($company['logo_path'])):?><img src="<?=h($company['logo_path'])?>" alt="<?=h($company['trade_name']?:$company['legal_name'])?>"><?php else:?><span class="catalog-mark">CP</span><?php endif;?><span><strong><?=h($company['trade_name']?:$company['legal_name'])?></strong><small>CATÁLOGO WEB</small></span></a><nav><a href="/">Inicio</a><a class="active" href="/catalogo.php">Catálogo</a><?php if($company['phone']!==''):?><a href="tel:<?=h($phoneRaw)?>">☎ <?=h($company['phone'])?></a><?php endif;?></nav></div></header>
-<main><section class="catalog-hero"><div class="catalog-container"><p class="catalog-eyebrow">CATÁLOGO PROPIO · COLIBRÍ PRINT</p><h1>Productos que puedes <em>personalizar.</em></h1><p>Explora nuestro catálogo y encuentra una base para tu proyecto. Cuando el precio depende de medidas, materiales, cantidades o diseño, lo convertimos en una cotización personalizada.</p><form class="catalog-search" method="get"><?php if($categoryId>0):?><input type="hidden" name="categoria" value="<?=h((string)$categoryId)"><?php endif;?><input type="search" name="q" value="<?=h($q)?>" placeholder="Buscar producto, SKU o descripción" aria-label="Buscar producto"><button type="submit">Buscar</button></form></div></section>
-<section class="catalog-body"><div class="catalog-container"><div class="catalog-layout"><aside class="catalog-filters"><div class="filter-title">Categorías</div><a class="filter-link <?=$categoryId===0?'selected':''?>" href="/catalogo.php<?= $q!==''?'?q='.rawurlencode($q):'' ?>">Todas</a><?php foreach($categories as $category):?><?php $href='/catalogo.php?categoria='.(int)$category['id'].($q!==''?'&q='.rawurlencode($q):'');?><a class="filter-link <?=$categoryId===(int)$category['id']?'selected':''?>" href="<?=h($href)?>"><?=h($category['name'])?></a><?php endforeach;?><div class="filter-note">Los productos marcados como visibles en el panel administrativo aparecen aquí automáticamente.</div></aside>
-<div class="catalog-results"><div class="results-head"><div><span class="catalog-eyebrow">CATÁLOGO</span><h2><?=count($products)?> <?=count($products)===1?'producto disponible':'productos disponibles'?></h2></div><?php if($q!==''||$categoryId>0):?><a href="/catalogo.php" class="clear-filter">Limpiar filtros ×</a><?php endif;?></div>
-<?php if(!$products):?><div class="catalog-empty"><strong>Aún no encontramos productos con estos filtros.</strong><p>Prueba otra búsqueda o vuelve a todas las categorías. También puedes pedir una cotización directamente.</p><?php if($waBase):?><a class="catalog-button" href="<?=h(quote_url($waBase,'un proyecto personalizado'))?>" target="_blank" rel="noopener">Cotizar por WhatsApp ↗</a><?php endif;?></div><?php else:?><div class="product-grid"><?php foreach($products as $product):?><?php $image=public_image($product['image_path']??'');?><article class="product-card"><div class="product-image"><?php if($image):?><img src="<?=h($image)?>" alt="<?=h($product['name'])?>" loading="lazy"><?php else:?><div class="product-placeholder"><span>CP</span><small>Imagen próximamente</small></div><?php endif;?><span class="product-category"><?=h($product['category_name']?:'Colibrí Print')?></span></div><div class="product-content"><div class="product-meta"><?=h(pricing_label((string)$product['pricing_type']))?><?= $product['sku']?' · SKU '.h($product['sku']):'' ?></div><h3><?=h($product['name'])?></h3><?php if(!empty($product['description'])):?><p><?=h((string)$product['description'])?></p><?php endif;?><div class="product-footer"><?php if($product['pricing_type']==='fixed'&&$product['sale_price']!==null):?><strong class="product-price"><?=h(money_public($product['sale_price']))?></strong><?php else:?><strong class="product-price quote-price">Cotizar</strong><?php endif;?><?php if($waBase):?><a class="catalog-button small" href="<?=h(quote_url($waBase,(string)$product['name']))?>" target="_blank" rel="noopener">Cotizar ↗</a><?php endif;?></div></div></article><?php endforeach;?></div><?php endif;?></div></div></div></section></main>
-<footer class="catalog-footer"><div class="catalog-container catalog-footer-grid"><div><strong><?=h($company['trade_name']?:$company['legal_name'])?></strong><p><?=h($company['address'])?><?= $company['neighborhood']?', '.h($company['neighborhood']):'' ?> · <?=h($company['city'])?>, <?=h($company['state'])?></p></div><div><span>¿No encuentras lo que necesitas?</span><?php if($waBase):?><a href="<?=h(quote_url($waBase,'un proyecto personalizado'))?>" target="_blank" rel="noopener">Hablemos de tu proyecto ↗</a><?php endif;?></div></div></footer></body></html>
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Catálogo de productos de Colibrí Print México. Personalización, impresión y soluciones para negocios, eventos y proyectos.">
+<meta name="theme-color" content="#0f1715">
+<link rel="canonical" href="https://colibriprint.com.mx/catalogo.php">
+<title>Catálogo | <?= h($company['trade_name'] ?: $company['legal_name']) ?></title>
+<link rel="stylesheet" href="/assets/css/public.css?v=20260918-corporativo-v4">
+<link rel="stylesheet" href="/assets/css/catalogo.css?v=20260919-1">
+</head>
+<body>
+<header class="catalog-header">
+<div class="catalog-container catalog-nav">
+<a class="catalog-brand" href="/" aria-label="Volver al sitio principal">
+<?php if (!empty($company['logo_path'])): ?>
+<img src="<?= h($company['logo_path']) ?>" alt="<?= h($company['trade_name'] ?: $company['legal_name']) ?>">
+<?php else: ?><span class="catalog-mark">CP</span><?php endif; ?>
+<span><strong><?= h($company['trade_name'] ?: $company['legal_name']) ?></strong><small>CATÁLOGO WEB</small></span>
+</a>
+<nav><a href="/">Inicio</a><a class="active" href="/catalogo.php">Catálogo</a>
+<?php if ($company['phone'] !== ''): ?><a href="tel:<?= h($phoneRaw) ?>">☎ <?= h($company['phone']) ?></a><?php endif; ?>
+</nav>
+</div>
+</header>
+
+<main>
+<section class="catalog-hero">
+<div class="catalog-container">
+<p class="catalog-eyebrow">CATÁLOGO PROPIO · COLIBRÍ PRINT</p>
+<h1>Productos que puedes <em>personalizar.</em></h1>
+<p>Explora nuestro catálogo y encuentra una base para tu proyecto. Cuando el precio depende de medidas, materiales, cantidades o diseño, lo convertimos en una cotización personalizada.</p>
+<form class="catalog-search" method="get">
+<?php if ($categoryId > 0): ?><input type="hidden" name="categoria" value="<?= h((string)$categoryId) ?>"><?php endif; ?>
+<input type="search" name="q" value="<?= h($q) ?>" placeholder="Buscar producto, SKU o descripción" aria-label="Buscar producto">
+<button type="submit">Buscar</button>
+</form>
+</div>
+</section>
+
+<section class="catalog-body">
+<div class="catalog-container">
+<div class="catalog-layout">
+<aside class="catalog-filters">
+<div class="filter-title">Categorías</div>
+<a class="filter-link <?= $categoryId===0?'selected':'' ?>" href="/catalogo.php<?= $q!==''?'?q='.rawurlencode($q):'' ?>">Todas</a>
+<?php foreach ($categories as $category):
+$href='/catalogo.php?categoria='.(int)$category['id'].($q!==''?'&q='.rawurlencode($q):''); ?>
+<a class="filter-link <?= $categoryId===(int)$category['id']?'selected':'' ?>" href="<?= h($href) ?>"><?= h($category['name']) ?></a>
+<?php endforeach; ?>
+<div class="filter-note">Los productos marcados como visibles en el panel administrativo aparecen aquí automáticamente.</div>
+</aside>
+
+<div class="catalog-results">
+<div class="results-head">
+<div><span class="catalog-eyebrow">CATÁLOGO</span><h2><?= count($products) ?> <?= count($products)===1?'producto disponible':'productos disponibles' ?></h2></div>
+<?php if ($q!=='' || $categoryId>0): ?><a href="/catalogo.php" class="clear-filter">Limpiar filtros ×</a><?php endif; ?>
+</div>
+
+<?php if (!$products): ?>
+<div class="catalog-empty">
+<strong>Aún no encontramos productos con estos filtros.</strong>
+<p>Prueba otra búsqueda o vuelve a todas las categorías. También puedes pedir una cotización directamente.</p>
+<?php if ($waBase): ?><a class="catalog-button" href="<?= h(quote_url($waBase,'un proyecto personalizado')) ?>" target="_blank" rel="noopener">Cotizar por WhatsApp ↗</a><?php endif; ?>
+</div>
+<?php else: ?>
+<div class="product-grid">
+<?php foreach ($products as $product):
+$image = public_image($product['image_path'] ?? ''); ?>
+<article class="product-card">
+<div class="product-image">
+<?php if ($image): ?><img src="<?= h($image) ?>" alt="<?= h($product['name']) ?>" loading="lazy">
+<?php else: ?><div class="product-placeholder"><span>CP</span><small>Imagen próximamente</small></div><?php endif; ?>
+<span class="product-category"><?= h($product['category_name'] ?: 'Colibrí Print') ?></span>
+</div>
+<div class="product-content">
+<div class="product-meta"><?= h(pricing_label((string)$product['pricing_type'])) ?><?= $product['sku'] ? ' · SKU '.h($product['sku']) : '' ?></div>
+<h3><?= h($product['name']) ?></h3>
+<?php if (!empty($product['description'])): ?><p><?= h((string)$product['description']) ?></p><?php endif; ?>
+<div class="product-footer">
+<?php if ($product['pricing_type']==='fixed' && $product['sale_price']!==null): ?>
+<strong class="product-price"><?= h(money_public($product['sale_price'])) ?></strong>
+<?php else: ?><strong class="product-price quote-price">Cotizar</strong><?php endif; ?>
+<a class="catalog-button small" href="/producto.php?id=<?= (int)$product['id'] ?>">Ver producto ↗</a>
+</div>
+</div>
+</article>
+<?php endforeach; ?>
+</div>
+<?php endif; ?>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<footer class="catalog-footer">
+<div class="catalog-container catalog-footer-grid">
+<div><strong><?= h($company['trade_name'] ?: $company['legal_name']) ?></strong>
+<p><?= h($company['address']) ?><?= $company['neighborhood'] ? ', '.h($company['neighborhood']) : '' ?> · <?= h($company['city']) ?>, <?= h($company['state']) ?></p></div>
+<div><span>¿No encuentras lo que necesitas?</span>
+<?php if ($waBase): ?><a href="<?= h(quote_url($waBase,'un proyecto personalizado')) ?>" target="_blank" rel="noopener">Hablemos de tu proyecto ↗</a><?php endif; ?>
+</div>
+</div>
+</footer>
+</body>
+</html>
