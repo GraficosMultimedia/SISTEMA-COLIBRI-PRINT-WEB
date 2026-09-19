@@ -14,7 +14,7 @@ return array (
     'host' => 'localhost',
     'name' => 'colibrip_abcsistema',
     'user' => 'colibrip_siscar',
-    'pass' => 'DpNH?av%K^%tjw5l',
+    'pass' => '',
     'charset' => 'utf8mb4',
   ),
   'akaunting' => 
