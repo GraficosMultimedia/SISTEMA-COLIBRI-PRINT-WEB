@@ -22,7 +22,7 @@ return array (
     'host' => 'localhost',
     'name' => 'colibrip_akau488',
     'user' => 'colibrip_siscar',
-    'pass' => 'DpNH?av%K^%tjw5l',
+    'pass' => '',
     'charset' => 'utf8mb4',
     'prefix' => 'ak4s_',
   ),
