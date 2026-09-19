@@ -1,0 +1,55 @@
+-- ABC Sistema | Fase 10 | Pagos y facturación administrativa
+-- No genera ni timbra CFDI. Esta fase registra pagos y documentos fiscales/control.
+
+CREATE TABLE IF NOT EXISTS cp_payments (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    order_id INT UNSIGNED NOT NULL,
+    customer_id INT UNSIGNED NULL,
+    amount DECIMAL(15,2) NOT NULL DEFAULT 0,
+    payment_date DATE NOT NULL,
+    method VARCHAR(30) NOT NULL DEFAULT 'other',
+    reference VARCHAR(190) NULL,
+    note TEXT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
+    created_by INT UNSIGNED NULL,
+    updated_by INT UNSIGNED NULL,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
+    PRIMARY KEY (id),
+    KEY idx_cp_payments_order (order_id),
+    KEY idx_cp_payments_customer (customer_id),
+    KEY idx_cp_payments_date (payment_date),
+    KEY idx_cp_payments_status (status),
+    CONSTRAINT fk_cp_payments_order FOREIGN KEY (order_id) REFERENCES cp_orders(id) ON DELETE CASCADE,
+    CONSTRAINT fk_cp_payments_customer FOREIGN KEY (customer_id) REFERENCES cp_customers(id) ON DELETE SET NULL,
+    CONSTRAINT fk_cp_payments_created_by FOREIGN KEY (created_by) REFERENCES cp_users(id) ON DELETE SET NULL,
+    CONSTRAINT fk_cp_payments_updated_by FOREIGN KEY (updated_by) REFERENCES cp_users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS cp_invoices (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    order_id INT UNSIGNED NOT NULL,
+    customer_id INT UNSIGNED NULL,
+    invoice_number VARCHAR(60) NOT NULL,
+    invoice_date DATE NOT NULL,
+    subtotal DECIMAL(15,2) NOT NULL DEFAULT 0,
+    tax DECIMAL(15,2) NOT NULL DEFAULT 0,
+    total DECIMAL(15,2) NOT NULL DEFAULT 0,
+    status VARCHAR(20) NOT NULL DEFAULT 'draft',
+    cfdi_uuid VARCHAR(80) NULL,
+    notes TEXT NULL,
+    created_by INT UNSIGNED NULL,
+    updated_by INT UNSIGNED NULL,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY uq_cp_invoices_number (invoice_number),
+    KEY idx_cp_invoices_order (order_id),
+    KEY idx_cp_invoices_customer (customer_id),
+    KEY idx_cp_invoices_date (invoice_date),
+    KEY idx_cp_invoices_status (status),
+    CONSTRAINT fk_cp_invoices_order FOREIGN KEY (order_id) REFERENCES cp_orders(id) ON DELETE CASCADE,
+    CONSTRAINT fk_cp_invoices_customer FOREIGN KEY (customer_id) REFERENCES cp_customers(id) ON DELETE SET NULL,
+    CONSTRAINT fk_cp_invoices_created_by FOREIGN KEY (created_by) REFERENCES cp_users(id) ON DELETE SET NULL,
+    CONSTRAINT fk_cp_invoices_updated_by FOREIGN KEY (updated_by) REFERENCES cp_users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

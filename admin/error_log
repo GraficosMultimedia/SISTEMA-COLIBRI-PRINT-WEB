@@ -1,0 +1,180 @@
+[16-Sep-2026 23:06:06 America/Chihuahua] PHP Warning:  Undefined variable $akaTotal in /home2/colibrip/public_html/admin/productos.php on line 165
+[16-Sep-2026 23:06:06 America/Chihuahua] PHP Fatal error:  Uncaught TypeError: number_format(): Argument #1 ($num) must be of type int|float, null given in /home2/colibrip/public_html/admin/productos.php:165
+Stack trace:
+#0 /home2/colibrip/public_html/admin/productos.php(165): number_format(NULL)
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/productos.php on line 165
+[16-Sep-2026 23:06:08 America/Chihuahua] PHP Warning:  Undefined variable $akaTotal in /home2/colibrip/public_html/admin/productos.php on line 165
+[16-Sep-2026 23:06:08 America/Chihuahua] PHP Fatal error:  Uncaught TypeError: number_format(): Argument #1 ($num) must be of type int|float, null given in /home2/colibrip/public_html/admin/productos.php:165
+Stack trace:
+#0 /home2/colibrip/public_html/admin/productos.php(165): number_format(NULL)
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/productos.php on line 165
+[16-Sep-2026 23:06:14 America/Chihuahua] PHP Warning:  Undefined variable $akaTotal in /home2/colibrip/public_html/admin/productos.php on line 165
+[16-Sep-2026 23:06:14 America/Chihuahua] PHP Fatal error:  Uncaught TypeError: number_format(): Argument #1 ($num) must be of type int|float, null given in /home2/colibrip/public_html/admin/productos.php:165
+Stack trace:
+#0 /home2/colibrip/public_html/admin/productos.php(165): number_format(NULL)
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/productos.php on line 165
+[16-Sep-2026 23:19:49 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'enabled' in where clause is ambiguous in /home2/colibrip/public_html/admin/productos.php:23
+Stack trace:
+#0 /home2/colibrip/public_html/admin/productos.php(23): PDO->prepare('SELECT p.*,c.na...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/productos.php on line 23
+[16-Sep-2026 23:26:01 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'enabled' in where clause is ambiguous in /home2/colibrip/public_html/admin/productos.php:22
+Stack trace:
+#0 /home2/colibrip/public_html/admin/productos.php(22): PDO->prepare('SELECT p.*,c.na...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/productos.php on line 22
+[16-Sep-2026 23:26:02 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'enabled' in where clause is ambiguous in /home2/colibrip/public_html/admin/productos.php:22
+Stack trace:
+#0 /home2/colibrip/public_html/admin/productos.php(22): PDO->prepare('SELECT p.*,c.na...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/productos.php on line 22
+[16-Sep-2026 23:26:02 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'enabled' in where clause is ambiguous in /home2/colibrip/public_html/admin/productos.php:22
+Stack trace:
+#0 /home2/colibrip/public_html/admin/productos.php(22): PDO->prepare('SELECT p.*,c.na...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/productos.php on line 22
+[16-Sep-2026 23:26:03 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'enabled' in where clause is ambiguous in /home2/colibrip/public_html/admin/productos.php:22
+Stack trace:
+#0 /home2/colibrip/public_html/admin/productos.php(22): PDO->prepare('SELECT p.*,c.na...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/productos.php on line 22
+[16-Sep-2026 23:28:01 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'enabled' in where clause is ambiguous in /home2/colibrip/public_html/admin/productos.php:22
+Stack trace:
+#0 /home2/colibrip/public_html/admin/productos.php(22): PDO->prepare('SELECT p.*,c.na...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/productos.php on line 22
+[16-Sep-2026 23:35:26 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'enabled' in where clause is ambiguous in /home2/colibrip/public_html/admin/productos.php:22
+Stack trace:
+#0 /home2/colibrip/public_html/admin/productos.php(22): PDO->prepare('SELECT p.*,c.na...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/productos.php on line 22
+[16-Sep-2026 23:35:30 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'enabled' in where clause is ambiguous in /home2/colibrip/public_html/admin/productos.php:22
+Stack trace:
+#0 /home2/colibrip/public_html/admin/productos.php(22): PDO->prepare('SELECT p.*,c.na...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/productos.php on line 22
+[16-Sep-2026 23:35:41 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'enabled' in where clause is ambiguous in /home2/colibrip/public_html/admin/productos.php:22
+Stack trace:
+#0 /home2/colibrip/public_html/admin/productos.php(22): PDO->prepare('SELECT p.*,c.na...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/productos.php on line 22
+[17-Sep-2026 00:40:12 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'colibrip_abcsistema.cp_quotes' doesn't exist in /home2/colibrip/public_html/admin/cotizaciones.php:28
+Stack trace:
+#0 /home2/colibrip/public_html/admin/cotizaciones.php(28): PDO->prepare('SELECT q.*, c.n...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizaciones.php on line 28
+[17-Sep-2026 00:40:25 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'colibrip_abcsistema.cp_quotes' doesn't exist in /home2/colibrip/public_html/admin/cotizaciones.php:28
+Stack trace:
+#0 /home2/colibrip/public_html/admin/cotizaciones.php(28): PDO->prepare('SELECT q.*, c.n...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizaciones.php on line 28
+[17-Sep-2026 00:40:28 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'colibrip_abcsistema.cp_quotes' doesn't exist in /home2/colibrip/public_html/admin/cotizaciones.php:28
+Stack trace:
+#0 /home2/colibrip/public_html/admin/cotizaciones.php(28): PDO->prepare('SELECT q.*, c.n...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizaciones.php on line 28
+[17-Sep-2026 00:40:31 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'colibrip_abcsistema.cp_quotes' doesn't exist in /home2/colibrip/public_html/admin/cotizaciones.php:28
+Stack trace:
+#0 /home2/colibrip/public_html/admin/cotizaciones.php(28): PDO->prepare('SELECT q.*, c.n...')
+#1 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizaciones.php on line 28
+[17-Sep-2026 00:41:29 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'colibrip_abcsistema.cp_quotes' doesn't exist in /home2/colibrip/public_html/includes/cotizaciones.php:32
+Stack trace:
+#0 /home2/colibrip/public_html/includes/cotizaciones.php(32): PDO->prepare('SELECT q.*, c.n...')
+#1 /home2/colibrip/public_html/admin/cotizacion.php(7): quote_get(0)
+#2 {main}
+  thrown in /home2/colibrip/public_html/includes/cotizaciones.php on line 32
+[17-Sep-2026 00:41:39 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'colibrip_abcsistema.cp_quotes' doesn't exist in /home2/colibrip/public_html/includes/cotizaciones.php:32
+Stack trace:
+#0 /home2/colibrip/public_html/includes/cotizaciones.php(32): PDO->prepare('SELECT q.*, c.n...')
+#1 /home2/colibrip/public_html/admin/cotizacion.php(7): quote_get(0)
+#2 {main}
+  thrown in /home2/colibrip/public_html/includes/cotizaciones.php on line 32
+[17-Sep-2026 00:43:06 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:95
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 95
+[17-Sep-2026 00:44:04 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:95
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 95
+[17-Sep-2026 00:45:18 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:95
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 95
+[17-Sep-2026 00:54:03 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:95
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 95
+[17-Sep-2026 00:55:20 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:95
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 95
+[17-Sep-2026 00:55:24 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:95
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 95
+[17-Sep-2026 00:55:31 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:95
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 95
+[17-Sep-2026 00:56:40 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:95
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 95
+[17-Sep-2026 00:57:09 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:95
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 95
+[17-Sep-2026 00:57:19 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:95
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 95
+[17-Sep-2026 01:00:29 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:95
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 95
+[17-Sep-2026 06:23:22 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:95
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 95
+[17-Sep-2026 06:27:59 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:102
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 102
+[17-Sep-2026 06:28:08 America/Chihuahua] PHP Fatal error:  Uncaught Error: Call to undefined function money() in /home2/colibrip/public_html/admin/cotizacion_nueva.php:102
+Stack trace:
+#0 {main}
+  thrown in /home2/colibrip/public_html/admin/cotizacion_nueva.php on line 102
+[17-Sep-2026 09:01:49 America/Chihuahua] PHP Parse error:  syntax error, unexpected single-quoted string ") {" in /home2/colibrip/public_html/includes/produccion.php on line 70
+[17-Sep-2026 09:01:54 America/Chihuahua] PHP Parse error:  syntax error, unexpected single-quoted string ") {" in /home2/colibrip/public_html/includes/produccion.php on line 70
+[17-Sep-2026 09:03:54 America/Chihuahua] PHP Parse error:  syntax error, unexpected single-quoted string ") {" in /home2/colibrip/public_html/includes/produccion.php on line 70
+[17-Sep-2026 09:03:57 America/Chihuahua] PHP Parse error:  syntax error, unexpected single-quoted string ") {" in /home2/colibrip/public_html/includes/produccion.php on line 70
+[17-Sep-2026 09:06:03 America/Chihuahua] PHP Parse error:  syntax error, unexpected single-quoted string ") {" in /home2/colibrip/public_html/includes/produccion.php on line 70
+[17-Sep-2026 17:20:04 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1 in /home2/colibrip/public_html/admin/reportes.php:51
+Stack trace:
+#0 /home2/colibrip/public_html/admin/reportes.php(51): PDO->prepare('SHOW TABLES LIK...')
+#1 /home2/colibrip/public_html/admin/reportes.php(116): table_exists(Object(PDO), 'cp_payments')
+#2 {main}
+  thrown in /home2/colibrip/public_html/admin/reportes.php on line 51
+[17-Sep-2026 17:32:45 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1 in /home2/colibrip/public_html/admin/reportes.php:51
+Stack trace:
+#0 /home2/colibrip/public_html/admin/reportes.php(51): PDO->prepare('SHOW TABLES LIK...')
+#1 /home2/colibrip/public_html/admin/reportes.php(116): table_exists(Object(PDO), 'cp_payments')
+#2 {main}
+  thrown in /home2/colibrip/public_html/admin/reportes.php on line 51
+[17-Sep-2026 17:32:54 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1 in /home2/colibrip/public_html/admin/reportes.php:51
+Stack trace:
+#0 /home2/colibrip/public_html/admin/reportes.php(51): PDO->prepare('SHOW TABLES LIK...')
+#1 /home2/colibrip/public_html/admin/reportes.php(116): table_exists(Object(PDO), 'cp_payments')
+#2 {main}
+  thrown in /home2/colibrip/public_html/admin/reportes.php on line 51
+[17-Sep-2026 17:32:59 America/Chihuahua] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?' at line 1 in /home2/colibrip/public_html/admin/reportes.php:51
+Stack trace:
+#0 /home2/colibrip/public_html/admin/reportes.php(51): PDO->prepare('SHOW TABLES LIK...')
+#1 /home2/colibrip/public_html/admin/reportes.php(116): table_exists(Object(PDO), 'cp_payments')
+#2 {main}
+  thrown in /home2/colibrip/public_html/admin/reportes.php on line 51
