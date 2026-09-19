@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
 
-define('TIKTOK_CLIENT_KEY', 'sbawjd2mfh91nif35r');
-define('TIKTOK_CLIENT_SECRET', 'K25rRkxBdQwTd77eQhoQ4XppgNiionF8');
+define('TIKTOK_CLIENT_KEY', '');
+define('TIKTOK_CLIENT_SECRET', '');
 define('TIKTOK_REDIRECT_URI', 'https://colibriprint.com.mx/tiktok-callback/');
 
 /*
